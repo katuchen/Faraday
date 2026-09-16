@@ -1,3 +1,5 @@
+<img width="500" height="500" alt="Screenshot 2026-09-16 at 22 30 34" src="https://github.com/user-attachments/assets/128918f6-b151-4a65-a923-3c5f34eae5cb" />
+
 # Faraday
 
 Turn the network completely off for one iOS Simulator while your Mac stays online.
