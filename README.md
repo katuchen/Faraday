@@ -1,4 +1,4 @@
-<img width="500" height="500" alt="Screenshot 2026-09-16 at 22 30 34" src="https://github.com/user-attachments/assets/128918f6-b151-4a65-a923-3c5f34eae5cb" />
+<img width="500" height="500" alt="Faraday_Logo" src="https://github.com/user-attachments/assets/8e87bbdd-8941-4b53-8933-1f2bbb8b0376" />
 
 # Faraday
 
