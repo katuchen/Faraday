@@ -1,0 +1,18 @@
+.DS_Store
+build/
+*.xcarchive
+DerivedData/
+.build/
+.swiftpm/
+xcuserdata/
+*.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/
+Config/Local.xcconfig
+Maintainer/
+# Generated from project.yml
+Faraday.xcodeproj/
+App/Info.plist
+App/Faraday.entitlements
+CLI/Info.plist
+Filter/Info.plist
+Filter/FaradayFilter.entitlements
+NetProbe/Info.plist

@@ -1,0 +1,158 @@
+name: Faraday
+
+options:
+  bundleIdPrefix: dev.faraday
+  deploymentTarget:
+    macOS: "15.0"
+    iOS: "17.0"
+  createIntermediateGroups: true
+  groupSortPosition: top
+
+configFiles:
+  Debug: Config/Faraday.xcconfig
+  Release: Config/Faraday.xcconfig
+
+settings:
+  base:
+    SWIFT_VERSION: "6.0"
+    MARKETING_VERSION: "0.1.0"
+    CURRENT_PROJECT_VERSION: "1"
+    ENABLE_USER_SCRIPT_SANDBOXING: NO
+    CODE_SIGN_STYLE: Automatic
+
+packages:
+  FaradayKit:
+    path: Packages/FaradayKit
+
+targets:
+  Faraday:
+    type: application
+    platform: macOS
+    sources:
+      - path: App
+    dependencies:
+      - package: FaradayKit
+        product: FaradayControl
+      - target: FaradayFilter
+      - target: FaradayCLI
+        copy:
+          destination: wrapper
+          subpath: Contents/Helpers
+    info:
+      path: App/Info.plist
+      properties:
+        CFBundleDisplayName: Faraday
+        CFBundlePackageType: APPL
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        LSUIElement: true
+        LSApplicationCategoryType: public.app-category.developer-tools
+        FaradayMachServiceName: $(FARADAY_MACH_SERVICE)
+        FaradayFilterBundleIdentifier: $(FARADAY_FILTER_ID)
+        FaradayTeamIdentifier: $(FARADAY_TEAM_ID)
+    entitlements:
+      path: App/Faraday.entitlements
+      properties:
+        com.apple.developer.system-extension.install: true
+        com.apple.developer.networking.networkextension: [content-filter-provider]
+        com.apple.security.application-groups: [$(FARADAY_APP_GROUP)]
+    postCompileScripts:
+      - name: Build Simulator App Shim
+        script: '"$SRCROOT/Scripts/build-shim.sh" "$TARGET_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH"'
+        basedOnDependencyAnalysis: true
+        inputFiles:
+          - $(SRCROOT)/Scripts/build-shim.sh
+          - $(SRCROOT)/Shim/FaradayShim.h
+          - $(SRCROOT)/Shim/FaradayShim.m
+          - $(SRCROOT)/Shim/NetworkInterposes.swift
+        outputFiles:
+          - $(TARGET_BUILD_DIR)/$(UNLOCALIZED_RESOURCES_FOLDER_PATH)/FaradayShim.dylib
+    settings:
+      base:
+        PRODUCT_NAME: Faraday
+        PRODUCT_BUNDLE_IDENTIFIER: $(FARADAY_APP_ID)
+        ENABLE_HARDENED_RUNTIME: YES
+    scheme: {}
+
+  FaradayFilter:
+    type: system-extension
+    platform: macOS
+    sources:
+      - path: Filter
+    dependencies:
+      - package: FaradayKit
+        product: FaradayCore
+    info:
+      path: Filter/Info.plist
+      properties:
+        CFBundleDisplayName: Faraday Filter
+        CFBundlePackageType: SYSX
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        NSSystemExtensionUsageDescription: Faraday blocks network access for the simulators you mark offline. Your Mac's own traffic is never touched.
+        NetworkExtension:
+          NEMachServiceName: $(FARADAY_MACH_SERVICE)
+          NEProviderClasses:
+            com.apple.networkextension.filter-data: $(PRODUCT_MODULE_NAME).FilterDataProvider
+        FaradayAppBundleIdentifier: $(FARADAY_APP_ID)
+        FaradayCLIIdentifier: $(FARADAY_CLI_ID)
+        FaradayTeamIdentifier: $(FARADAY_TEAM_ID)
+    entitlements:
+      path: Filter/FaradayFilter.entitlements
+      properties:
+        com.apple.developer.networking.networkextension: [content-filter-provider]
+        com.apple.security.app-sandbox: true
+        com.apple.security.application-groups: [$(FARADAY_APP_GROUP)]
+    settings:
+      base:
+        PRODUCT_NAME: $(FARADAY_FILTER_ID)
+        PRODUCT_MODULE_NAME: FaradayFilter
+        PRODUCT_BUNDLE_IDENTIFIER: $(FARADAY_FILTER_ID)
+        ENABLE_HARDENED_RUNTIME: YES
+
+  FaradayCLI:
+    type: tool
+    platform: macOS
+    sources:
+      - path: CLI
+    dependencies:
+      - package: FaradayKit
+        product: FaradayControl
+    info:
+      path: CLI/Info.plist
+      properties:
+        CFBundleIdentifier: $(PRODUCT_BUNDLE_IDENTIFIER)
+        CFBundleName: faraday
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        FaradayMachServiceName: $(FARADAY_MACH_SERVICE)
+        FaradayFilterBundleIdentifier: $(FARADAY_FILTER_ID)
+        FaradayTeamIdentifier: $(FARADAY_TEAM_ID)
+    settings:
+      base:
+        PRODUCT_NAME: faraday
+        PRODUCT_BUNDLE_IDENTIFIER: $(FARADAY_CLI_ID)
+        CREATE_INFOPLIST_SECTION_IN_BINARY: YES
+        ENABLE_HARDENED_RUNTIME: YES
+        SKIP_INSTALL: YES
+    scheme: {}
+
+  NetProbe:
+    type: application
+    platform: iOS
+    sources:
+      - path: NetProbe
+    info:
+      path: NetProbe/Info.plist
+      properties:
+        CFBundleDisplayName: NetProbe
+        UILaunchScreen: {}
+        UISupportedInterfaceOrientations: [UIInterfaceOrientationPortrait]
+        NSAppTransportSecurity:
+          NSAllowsLocalNetworking: true
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: $(FARADAY_BUNDLE_PREFIX).NetProbe
+        TARGETED_DEVICE_FAMILY: "1"
+        "CODE_SIGN_IDENTITY[sdk=iphonesimulator*]": "-"
+    scheme: {}

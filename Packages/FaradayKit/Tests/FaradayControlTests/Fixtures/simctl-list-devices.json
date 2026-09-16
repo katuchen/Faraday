@@ -1,0 +1,45 @@
+{
+  "devices" : {
+    "com.apple.CoreSimulator.SimRuntime.iOS-26-0" : [
+      {
+        "lastBootedAt" : "2026-09-14T20:59:12Z",
+        "dataPath" : "/Users/me/Library/Developer/CoreSimulator/Devices/4AB6C209-AF1B-406A-8371-438B730CB7F5/data",
+        "dataPathSize" : 3755155456,
+        "logPath" : "/Users/me/Library/Logs/CoreSimulator/4AB6C209-AF1B-406A-8371-438B730CB7F5",
+        "udid" : "4AB6C209-AF1B-406A-8371-438B730CB7F5",
+        "isAvailable" : true,
+        "logPathSize" : 704512,
+        "deviceTypeIdentifier" : "com.apple.CoreSimulator.SimDeviceType.iPhone-17-Pro",
+        "state" : "Booted",
+        "name" : "iPhone 17 Pro"
+      },
+      {
+        "dataPath" : "/Users/me/Library/Developer/CoreSimulator/Devices/36DA1BDB-EDE2-40A3-B016-1018008FB749/data",
+        "dataPathSize" : 18337792,
+        "logPath" : "/Users/me/Library/Logs/CoreSimulator/36DA1BDB-EDE2-40A3-B016-1018008FB749",
+        "udid" : "36DA1BDB-EDE2-40A3-B016-1018008FB749",
+        "isAvailable" : true,
+        "deviceTypeIdentifier" : "com.apple.CoreSimulator.SimDeviceType.iPhone-17-Pro-Max",
+        "state" : "Shutdown",
+        "name" : "iPhone 17 Pro Max"
+      }
+    ],
+    "com.apple.CoreSimulator.SimRuntime.iOS-26-5" : [
+      {
+        "dataPath" : "/Users/me/Library/Developer/CoreSimulator/Devices/98AF303F-4801-4BF4-9FF0-53617040D652/data",
+        "udid" : "98AF303F-4801-4BF4-9FF0-53617040D652",
+        "isAvailable" : true,
+        "deviceTypeIdentifier" : "com.apple.CoreSimulator.SimDeviceType.iPhone-Air",
+        "state" : "Shutdown",
+        "name" : "iPhone Air"
+      },
+      {
+        "udid" : "not-a-udid",
+        "isAvailable" : false,
+        "state" : "Shutdown",
+        "name" : "Broken"
+      }
+    ],
+    "com.apple.CoreSimulator.SimRuntime.iOS-27-0" : []
+  }
+}
