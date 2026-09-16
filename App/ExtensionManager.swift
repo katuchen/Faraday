@@ -128,7 +128,8 @@ final class ExtensionManager: NSObject {
 
     func openSystemSettings() {
         let urls = [
-            "x-apple.systempreferences:com.apple.ExtensionsPreferences?extensionPointIdentifier=com.apple.system_extension.network_extension.extension-point",
+            "x-apple.systempreferences:com.apple.ExtensionsPreferences"
+                + "?extensionPointIdentifier=com.apple.system_extension.network_extension.extension-point",
             "x-apple.systempreferences:com.apple.LoginItems-Settings.extension",
         ]
         for string in urls {

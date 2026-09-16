@@ -56,6 +56,15 @@ targets:
         com.apple.developer.system-extension.install: true
         com.apple.developer.networking.networkextension: [content-filter-provider]
         com.apple.security.application-groups: [$(FARADAY_APP_GROUP)]
+    preBuildScripts:
+      - name: SwiftLint
+        basedOnDependencyAnalysis: false
+        script: |
+          if command -v swiftlint >/dev/null; then
+            swiftlint lint --quiet
+          else
+            echo "warning: SwiftLint isn't installed; run brew install swiftlint"
+          fi
     postCompileScripts:
       - name: Build Simulator App Shim
         script: '"$SRCROOT/Scripts/build-shim.sh" "$TARGET_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH"'

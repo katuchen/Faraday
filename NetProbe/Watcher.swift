@@ -30,9 +30,10 @@ final class Watcher {
         nw_path_monitor_start(cMonitor)
 
         if let target = SCNetworkReachabilityCreateWithName(nil, "www.apple.com") {
-            SCNetworkReachabilitySetCallback(target, { _, flags, _ in
+            let callback: SCNetworkReachabilityCallBack = { _, flags, _ in
                 emit("NETPROBE_PATH scnetworkreachability flags 0x\(String(flags.rawValue, radix: 16))")
-            }, nil)
+            }
+            SCNetworkReachabilitySetCallback(target, callback, nil)
             SCNetworkReachabilitySetDispatchQueue(target, .main)
             reachability = target
         }

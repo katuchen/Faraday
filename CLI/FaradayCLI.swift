@@ -111,8 +111,13 @@ struct Command {
                 let reachabilityReportsOffline: Bool
             }
             printJSON(booted.map {
-                Row(udid: $0.udid.rawValue, name: $0.name, runtime: $0.runtime, offline: offline?.contains($0.udid),
-                    reachabilityReportsOffline: ReachabilityShim.isOffline($0.udid))
+                Row(
+                    udid: $0.udid.rawValue,
+                    name: $0.name,
+                    runtime: $0.runtime,
+                    offline: offline?.contains($0.udid),
+                    reachabilityReportsOffline: ReachabilityShim.isOffline($0.udid)
+                )
             })
             return
         }
@@ -160,7 +165,8 @@ struct Command {
         if !shimOnly {
             try await makeClient().setAllOnline()
         }
-        let stateFiles = (try? FileManager.default.contentsOfDirectory(at: ReachabilityShim.stateDirectory, includingPropertiesForKeys: nil)) ?? []
+        let directory = ReachabilityShim.stateDirectory
+        let stateFiles = (try? FileManager.default.contentsOfDirectory(at: directory, includingPropertiesForKeys: nil)) ?? []
         for file in stateFiles where file.pathExtension == "offline" {
             try? FileManager.default.removeItem(at: file)
         }

@@ -21,7 +21,7 @@ struct ReachabilityShimTests {
 
     @Test func removesOnlyTheShim() {
         #expect(ReachabilityShim.removingLibrary(from: "/tmp/Other.dylib:\(library)") == "/tmp/Other.dylib")
-        #expect(ReachabilityShim.removingLibrary(from: library) == "")
+        #expect(ReachabilityShim.removingLibrary(from: library).isEmpty)
     }
 
     @Test func stateFileFollowsShimConvention() {

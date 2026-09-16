@@ -12,7 +12,7 @@ public protocol FaradayControlProtocol {
 public enum ControlInterface {
     public static func make() -> NSXPCInterface {
         let interface = NSXPCInterface(with: FaradayControlProtocol.self)
-        let stringArray = NSSet(array: [NSArray.self, NSString.self]) as! Set<AnyHashable>
+        let stringArray = Set(([NSArray.self, NSString.self] as [AnyObject]).compactMap { $0 as? AnyHashable })
         interface.setClasses(
             stringArray,
             for: #selector(FaradayControlProtocol.setBootedSimulators(_:reply:)),

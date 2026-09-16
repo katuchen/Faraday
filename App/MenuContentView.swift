@@ -28,7 +28,8 @@ struct MenuContentView: View {
             .disabled(!model.isFilterReachable)
             VStack(alignment: .leading, spacing: 2) {
                 Toggle("Make reachability and DNS fail in apps too", isOn: $model.injectsReachabilityShim)
-                Text("Loads a small library into apps the simulators launch from now on, so NWPathMonitor and SCNetworkReachability report no network and name lookups fail. Relaunch apps that are already running.")
+                Text("Loads a small library into apps the simulators launch from now on, so NWPathMonitor and "
+                     + "SCNetworkReachability report no network and name lookups fail. Relaunch apps that are already running.")
                     .font(.caption)
                     .foregroundStyle(.secondary)
                     .fixedSize(horizontal: false, vertical: true)

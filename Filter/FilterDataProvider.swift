@@ -41,8 +41,10 @@ final class FilterDataProvider: NEFilterDataProvider {
             return .drop()
         case .watch:
             return .filterDataVerdict(
-                withFilterInbound: true, peekInboundBytes: Self.peekBytes,
-                filterOutbound: true, peekOutboundBytes: Self.peekBytes
+                withFilterInbound: true,
+                peekInboundBytes: Self.peekBytes,
+                filterOutbound: true,
+                peekOutboundBytes: Self.peekBytes
             )
         }
     }
