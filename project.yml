@@ -81,6 +81,7 @@ targets:
         PRODUCT_NAME: Faraday
         PRODUCT_BUNDLE_IDENTIFIER: $(FARADAY_APP_ID)
         ENABLE_HARDENED_RUNTIME: YES
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
     scheme: {}
 
   FaradayFilter:
